@@ -1,5 +1,5 @@
-# 正本の移動について
+# Canonical location
 
-戯曲本文の **単一ソース** は [`docs/index.md`](docs/index.md) です。
+The **single source** for the script text is [`docs/index.md`](docs/index.md).
 
-編集・査読はそちらを変更してください（このファイルは案内のみで、サイトには載りません）。
+Edit and review there. This file is only a pointer and is **not** included in the published site.

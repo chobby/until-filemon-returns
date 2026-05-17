@@ -1,5 +1,5 @@
 /**
- * 責務: 既定テーマを拡張し、天象儀／投影機の世界観用グローバル CSS を読み込む。
+ * Purpose: extend the default theme and load global CSS for the planetarium / projector look.
  */
 
 import type { Theme } from 'vitepress'

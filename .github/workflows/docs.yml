@@ -1,4 +1,4 @@
-# 責務: VitePress サイトの CI（PR はビルド検証、default ブランチへの push のみ GitHub Pages へ公開）。
+# Purpose: CI for the VitePress site (verify build on PR; deploy to GitHub Pages only on push to the default branch).
 
 name: Documentation site
 

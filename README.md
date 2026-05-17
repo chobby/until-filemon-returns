@@ -1,32 +1,32 @@
 # until-filemon-returns
 
-責務: 戯曲 *Comrade Gagarin and the House of Stars*（People’s Planetarium Program No. 1919）を **VitePress** で静的サイト化し、**GitHub Pages** で公開する。
+**Purpose:** Publish the script *Comrade Gagarin and the House of Stars* (People’s Planetarium Program No. 1919) as a static site with **VitePress** and **GitHub Pages**.
 
-## 公開 URL
+## Published URL
 
-- プロジェクト用 GitHub Pages の一般的な形: `https://<GitHubユーザー名>.github.io/<リポジトリ名>/`
-- 本リポジトリを `chobby/until-filemon-returns` として公開した場合の例: `https://chobby.github.io/until-filemon-returns/`
+- Typical project Pages URL: `https://<github-username>.github.io/<repository-name>/`
+- Example for this repo as `chobby/until-filemon-returns`: `https://chobby.github.io/until-filemon-returns/`
 
-`base` は CI の環境変数 `GITHUB_PAGES_BASE`（ワークフロー内で `/<リポジトリ名>/` を自動設定）と `docs/.vitepress/config.mts` の解決ロジックで一致させています。リポジトリ名が `<ユーザー名>.github.io` の **ユーザーサイト** の場合は `GITHUB_PAGES_BASE=/` になります。
+`base` is aligned with the CI environment variable `GITHUB_PAGES_BASE` (set in the workflow to `/<repository-name>/`) and the resolver in [`docs/.vitepress/config.mts`](docs/.vitepress/config.mts). For a **user site** repository named `<username>.github.io`, `GITHUB_PAGES_BASE` is `/`.
 
-## 初回のみ（GitHub 側の設定）
+## One-time GitHub setup
 
-1. リポジトリの **Settings → Pages → Build and deployment**
-2. **Source** を **GitHub Actions** に変更する。
-3. 初回デプロイ後、同画面に表示される **サイト URL** を確認する。
+1. In the repo: **Settings → Pages → Build and deployment**
+2. Set **Source** to **GitHub Actions**
+3. After the first deploy, confirm the **site URL** on the same page
 
-## ローカル開発
+## Local development
 
-Node.js は **20**（[`.nvmrc`](.nvmrc)）を前提にしています。
+Node.js **20** is expected (see [`.nvmrc`](.nvmrc)).
 
 ```bash
 npm ci
 npm run docs:dev
 ```
 
-外観は VitePress の **`appearance: 'force-dark'`**（[`docs/.vitepress/config.mts`](docs/.vitepress/config.mts)）で常にダークに固定しています。天象儀のトーンと既定テーマの配色を一致させ、ライトモードで本文が読めなくなる事故を防ぎます。
+Appearance is pinned with VitePress **`appearance: 'force-dark'`** in [`docs/.vitepress/config.mts`](docs/.vitepress/config.mts) so the planetarium styling stays consistent with the default theme tokens and the body text does not break in light mode.
 
-本番に近い `base` でのビルド確認（例: リポジトリ名が `until-filemon-returns` のとき）:
+Build with a production-like `base` (example when the repo name is `until-filemon-returns`):
 
 ```bash
 # PowerShell
@@ -35,30 +35,30 @@ npm run docs:build
 npm run docs:preview
 ```
 
-`docs:preview` は **直前のビルド成果物**（上記で `base` を埋め込んだ `docs/.vitepress/dist`）をそのまま配信します。`base` を変えたら必ず再ビルドしてください。
+`docs:preview` serves the **last build output** (`docs/.vitepress/dist` with the embedded `base`). Rebuild whenever you change `base`.
 
-## 本文の編集場所（単一ソース）
+## Where to edit the script (single source)
 
-- **正本**: [`docs/index.md`](docs/index.md)
-- ルートの [`original.md`](original.md) は案内のみ（サイトには載りません）。
+- **Canonical text:** [`docs/index.md`](docs/index.md)
+- [`original.md`](original.md) at the repo root is a pointer only (not part of the site)
 
-## CI / テスト定義（計画 L1〜L3）
+## CI / test definition (L1–L3)
 
-| レベル | 内容 |
-|--------|------|
-| L1（必須） | `pull_request` / `push` で `npm ci` → `npm run docs:build` が成功すること |
-| L2（必須） | `main` への `push` のみ `upload-pages-artifact` → `deploy-pages` が走ること |
-| L3（推奨） | `package.json` の `engines.node`、[`.nvmrc`](.nvmrc)、`package-lock.json` をリポジトリに固定し、CI とローカルの前提を一致させること |
+| Level | Definition |
+|--------|------------|
+| L1 (required) | On `pull_request` and `push`, `npm ci` then `npm run docs:build` succeeds |
+| L2 (required) | Only `push` to `main` runs `upload-pages-artifact` → `deploy-pages` |
+| L3 (recommended) | Pin `engines.node` in `package.json`, [`.nvmrc`](.nvmrc), and `package-lock.json` so CI and local environments match |
 
-ワークフロー: [`.github/workflows/docs.yml`](.github/workflows/docs.yml)
+Workflow: [`.github/workflows/docs.yml`](.github/workflows/docs.yml)
 
-## マージ前の査読チェックリスト（短）
+## Short pre-merge review checklist
 
-- [ ] CI の **Build documentation site** が緑である
-- [ ] 変更が本文なら、意図しない置換・見出し崩れがない（戯曲は `##` / `###` が多い）
-- [ ] テーマ変更なら、暗背景でも本文が読みやすいか（コントラスト）、キーボード操作で主要リンクに辿れるか
-- [ ] リポジトリ名／`GITHUB_PAGES_BASE` の前提が変わっていないか（リネーム時はワークフローと README の説明を更新）
+- [ ] CI job **Build documentation site** is green
+- [ ] For content edits: no accidental replacements or broken heading structure (the script uses many `##` / `###`)
+- [ ] For theme edits: readable contrast on dark backgrounds; main links reachable by keyboard
+- [ ] If the repo or Pages `base` assumptions change, update the workflow and this README
 
-## ライセンス
+## License
 
-（未設定の場合はリポジトリオーナーが `LICENSE` を追加してください。）
+Add a `LICENSE` file if the repository owner has not set one yet.

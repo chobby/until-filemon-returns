@@ -1,5 +1,5 @@
 /**
- * 責務: VitePress のサイトメタ、`base` の解決、テーマとビルド出力まわりの既定をまとめる。
+ * Purpose: site metadata, resolve `base`, and wire the theme and build defaults for VitePress.
  */
 
 import { defineConfig } from 'vitepress'

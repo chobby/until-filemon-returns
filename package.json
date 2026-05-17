@@ -1,7 +1,7 @@
 {
   "name": "until-filemon-returns",
   "private": true,
-  "description": "責務: 戯曲テキストを VitePress で静的サイト化し、ローカルプレビューと本番ビルド（GitHub Pages 用）を提供する。",
+  "description": "Purpose: static VitePress reader for the script text, with local preview and production builds for GitHub Pages.",
   "type": "module",
   "engines": {
     "node": ">=20"
