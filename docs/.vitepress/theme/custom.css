@@ -1,0 +1,142 @@
+/**
+ * 責務: ドーム暗所・星屑・警告灯（赤）・投影琥珀を CSS 変数で表し、本文可読性を最優先する。
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+:root {
+  --planetarium-color-dome-void: #070a12;
+  --planetarium-color-dome-mid: #0d1324;
+  --planetarium-color-text-primary: #d7dce8;
+  --planetarium-color-text-muted: #9aa3b5;
+  --planetarium-color-accent-warning-lamp: #d63b3b;
+  --planetarium-color-accent-projection-amber: #e2b06a;
+  --planetarium-opacity-starfield-layer: 0.35;
+  --planetarium-opacity-scanline-layer: 0.08;
+  --planetarium-blur-starfield-soft: 1px;
+  --planetarium-font-size-body-minimum: 1.05rem;
+  --planetarium-line-height-body: 1.75;
+  --planetarium-content-max-width: 52rem;
+  --planetarium-spacing-content-padding: 1.75rem;
+}
+
+html,
+body {
+  background-color: var(--planetarium-color-dome-void);
+  color: var(--planetarium-color-text-primary);
+  font-family: 'IBM Plex Serif', ui-serif, Georgia, serif;
+  font-size: var(--planetarium-font-size-body-minimum);
+  line-height: var(--planetarium-line-height-body);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-color: var(--planetarium-color-dome-void);
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 70% 40%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 30% 80%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 90% 10%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.15), transparent);
+  background-size:
+    420px 420px,
+    520px 520px,
+    380px 380px,
+    460px 460px,
+    600px 600px;
+  opacity: var(--planetarium-opacity-starfield-layer);
+  filter: blur(var(--planetarium-blur-starfield-soft));
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: var(--planetarium-opacity-scanline-layer);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    opacity: 0;
+  }
+}
+
+.VPNav,
+.VPSidebar,
+.VPLocalNav,
+.VPFooter {
+  background-color: color-mix(in srgb, var(--planetarium-color-dome-mid) 88%, transparent) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(8px);
+}
+
+.VPNavBarTitle .title {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  color: var(--planetarium-color-accent-projection-amber) !important;
+}
+
+.VPContent,
+.VPDoc,
+.vp-doc {
+  color: var(--planetarium-color-text-primary);
+}
+
+.vp-doc a {
+  color: var(--planetarium-color-accent-warning-lamp);
+  text-decoration-color: color-mix(in srgb, var(--planetarium-color-accent-warning-lamp) 55%, transparent);
+}
+
+.vp-doc a:hover {
+  color: var(--planetarium-color-accent-projection-amber);
+  text-decoration-color: color-mix(in srgb, var(--planetarium-color-accent-projection-amber) 65%, transparent);
+}
+
+.vp-doc a:focus-visible {
+  outline: 2px solid var(--planetarium-color-accent-projection-amber);
+  outline-offset: 2px;
+}
+
+.vp-doc em,
+.vp-doc blockquote {
+  color: var(--planetarium-color-text-muted);
+}
+
+.vp-doc strong {
+  color: color-mix(in srgb, var(--planetarium-color-text-primary) 92%, var(--planetarium-color-accent-projection-amber));
+}
+
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  border-color: rgba(230, 176, 106, 0.25);
+}
+
+.vp-doc hr {
+  border-color: rgba(214, 59, 59, 0.35);
+}
+
+.VPDoc .content-container,
+.vp-doc {
+  max-width: var(--planetarium-content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--planetarium-spacing-content-padding);
+}
+
+.VPOutlineMarker {
+  background-color: var(--planetarium-color-accent-projection-amber) !important;
+}
